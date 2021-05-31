@@ -1,0 +1,169 @@
+﻿@model PagedList.IPagedList<CUAHANG.Models.Entities.PRODUCT>
+@using PagedList.Mvc;
+@*@model IEnumerable<CUAHANG.Models.Entities.PRODUCT>*@
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/webstore.cshtml";
+}
+
+<html>
+<body>
+
+    <div>
+        <style>
+            .center {
+                text-align-last: center;
+            }
+        </style>
+
+    </div>
+
+    <div class="center">
+        <h1>Products</h1>
+        <h7>Người dùng: @Session["user"]</h7>
+    </div>
+
+
+    <form action="" class="input-group w3ls_service_grid_right_1">
+        <input type="text" class="form-control" name="keySearch" value="@ViewBag.keySearch" placeholder="Nhập để tìm kiếm..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class=" btn-outline-info" type="submit" id="button-addon2">Tìm kiếm</button>
+        </div>
+    </form>
+
+    <table>
+        <tr>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        CATEGORY SEARCH
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/Store/Products?searchCategory=Fruits&page=@ViewBag.page&keySearch=@ViewBag.keySearch">Fruits</a>
+                        <a class="dropdown-item" href="/Store/Products?searchCategory=Vegetables&page=@ViewBag.page&keySearch=@ViewBag.keySearch">Vegetables</a>
+                        <a class="dropdown-item" href="/Store/Products?searchCategory=Soft Drinks&page=@ViewBag.page&keySearch=@ViewBag.keySearch">Soft Drinks</a>
+                        <a class="dropdown-item" href="/Store/Products?searchCategory=Juices&page=@ViewBag.page&keySearch=@ViewBag.keySearch">Juices</a>
+                        <a class="dropdown-item" href="/Store/Products?searchCategory=Bakery&page=@ViewBag.page&keySearch=@ViewBag.keySearch">Bakery</a>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        PRICE SEARCH
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/Store/Products?searchPrice=tang&page=@ViewBag.page">Gia tang</a>
+                        <a class="dropdown-item" href="/Store/Products?searchPrice=giam&page=@ViewBag.page">Gia giam</a>
+                        @* <a class="dropdown-item" href="/Store/Products?searchPrice=huy&page=@ViewBag.page">Huy</a>*@
+                    </div>
+                </div>
+            </td>
+
+            <br />
+            <h5>
+                Giá
+            </h5>
+            <label>Từ</label>
+            <input type="number" class="form-control price" value="@ViewBag.PriceFrom" />
+            <label>Đến</label>
+            <input type="number" class="form-control price" value="@ViewBag.PriceTo" />
+            <p>
+                <a href="#" onclick="searchByPrice()"
+                   class="btn btn-light mt-1" style="background-color:#007fff;color:white">
+                    Xác nhận
+                </a>
+            </p>
+
+            <td>
+                <button class="btn btn-outline-info">
+                    <div>
+                        <a class="btn-outline-info" href="/Store/Products?searchPrice=huy&page=@ViewBag.page">Huy</a>
+                    </div>
+                </button>
+
+            </td>
+        </tr>
+    </table>
+
+    <form action="/Store/Create">
+        <button type="submit" class="btn btn-primary">Thêm mới sản phẩm</button>
+    </form>
+
+    <div class="center">
+        <table class="table table-striped">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Thể loại</th>
+                    <th scope="col">Images</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Giá tiền</th>
+                    <th scope="col">Số lượng</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CATEGORY.TenTL)
+                    </td>
+                    <td style="width:160px">
+                        @* @Html.DisplayFor(modelItem => item.Image)*@
+                        <img style="width:150px; height:150px" src="~/uploadImg/@item.Image" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaTien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @*<div class="center">
+            <td style="table-layout:auto; left:600p; ">
+                @if (ViewBag.page > 1)
+            {
+                <a href="/Store/Products?page=@(ViewBag.page-1)&searchCategory=@ViewBag.searchCategory&keySearch=@ViewBag.keySearch" class="btn btn-outline-info m-1">Trang Trước</a>
+            }
+                @ViewBag.page
+                <a href="/Store/Products?page=@(ViewBag.page+1)&searchCategory=@ViewBag.searchCategory&keySearch=@ViewBag.keySearch" class="btn btn-outline-info m-1">Trang Sau</a>
+            </td>
+        </div>*@
+
+    <div class="center">
+        
+            @Html.PagedListPager(Model, page => Url.Action("Products", new { page }))
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Products")
+    </div>
+    <script>
+        let searchByPrice = () => {
+            let priceFrom = $("input.form-control.price")[0].value
+            let priceTo = $("input.form-control.price")[1].value
+            window.location.href = `/Store/Products?page=@ViewBag.page&priceFrom=${priceFrom}&priceTo=${priceTo}`
+        }
+    </script>
+</body>
+</html>

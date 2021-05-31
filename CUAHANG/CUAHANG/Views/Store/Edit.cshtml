@@ -1,0 +1,89 @@
+﻿@model CUAHANG.Models.Entities.PRODUCT
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/webstore.cshtml";
+}
+
+
+
+<form method="post" action="/Store/Edit" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>Chỉnh sửa sản phẩm</h4>
+        <hr />
+
+        <label for="file-input">
+            <img style="width:150px; height:150px" src="~/uploadImg/@Model.Image" />
+        </label>
+
+        <div class="form-group">
+            <input type="file" id="uploadImage" name="uploadImage" accept="image/*" />
+        </div>
+
+        <div class="form-group" hidden>
+
+            <div class="col-md-10">
+                <input name="id" value="@Model.id" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group" hidden>
+
+            <div class="col-md-10">
+                <input name="idTL" value="@Model.idTL" class="form-control" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Loại sản phẩm
+            </div>
+            <div class="col-md-10">
+                <input name="TenTL" value="@Model.CATEGORY.TenTL" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Tên sản phẩm
+            </div>
+            <div class="col-md-10">
+                <input name="TenSP" value="@Model.TenSP" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Mô Tả
+            </div>
+            <div class="col-md-10">
+                <input name="MoTa" value="@Model.MoTa" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Giá Tiền
+            </div>
+            <div class="col-md-10">
+                <input name="GiaTien" value="@Model.GiaTien" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                Số Lượng
+            </div>
+            <div class="col-md-10">
+                <input name="SoLuong" value="@Model.SoLuong" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-default btn-outline-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Products")
+</div>

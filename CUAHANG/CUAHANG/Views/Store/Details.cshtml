@@ -1,0 +1,72 @@
+﻿@model CUAHANG.Models.Entities.PRODUCT
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/webstore.cshtml";
+}
+
+<h2>Details Products</h2>
+
+
+<div class="row">
+    <div class="column">
+        <img style="width:300px; height:300px" src="~/uploadImg/@Html.DisplayFor(model => model.Image)" />
+    </div>
+
+    <div class="column">
+        <font size="+1">
+            <dl class="dl-horizontal">
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.Category.ten)*@
+                    Loại Sản Phẩm:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CATEGORY.TenTL)
+                </dd>
+
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.name)*@
+                    Tên sản phẩm:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenSP)
+                </dd>
+
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.price)*@
+                    Mô Tả:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MoTa)
+                </dd>
+
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.amount)*@
+                    Giá Tiền:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GiaTien)
+                </dd>
+
+                <dt>
+                    @*@Html.DisplayNameFor(model => model.description)*@
+                    Số Lượng:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoLuong)
+                </dd>
+
+            </dl>
+        </font>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Products")
+</p>
